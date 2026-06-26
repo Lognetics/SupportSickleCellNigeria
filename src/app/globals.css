@@ -110,6 +110,25 @@
   }
 }
 
+/* Reduce all font sizes by 15% on mobile (< 640px). Overriding the
+   Tailwind v4 font-size scale variables shrinks every text-* utility
+   while leaving spacing/layout untouched. */
+@media (max-width: 639px) {
+  :root {
+    --text-xs: 0.6375rem;
+    --text-sm: 0.74375rem;
+    --text-base: 0.85rem;
+    --text-lg: 0.95625rem;
+    --text-xl: 1.0625rem;
+    --text-2xl: 1.275rem;
+    --text-3xl: 1.59375rem;
+    --text-4xl: 1.9125rem;
+    --text-5xl: 2.55rem;
+    --text-6xl: 3.1875rem;
+    --text-7xl: 3.825rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;

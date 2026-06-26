@@ -98,3 +98,52 @@ export const portraits: ImageRef[] = [
   img.portrait5,
   img.portrait6,
 ];
+
+/** Per-program imagery (keyed by program slug). */
+export const programImages: Record<string, ImageRef> = {
+  "healthcare-support": img.doctorPatient,
+  "medication-assistance": img.nurse,
+  "school-outreach": img.students,
+  "community-awareness": img.eventCrowd,
+  "youth-programs": img.youthGroup,
+  "womens-health": img.pregnantWoman,
+  "family-counselling": img.familySmiling,
+  "nutrition-programs": img.motherChild,
+  "financial-support": img.counselling,
+  "research-grants": img.labResearch,
+  "emergency-relief": img.bloodDonation,
+  scholarships: img.childSmiling,
+};
+
+/** Per-news imagery (keyed by news slug). */
+export const newsImages: Record<string, ImageRef> = {
+  "national-genotype-week": img.celebration,
+  "hydroxyurea-access": img.nurse,
+  "blood-drive-record": img.bloodDonation,
+  "research-grant-2026": img.labResearch,
+};
+
+/** A general themed pool for misc card grids (events, resources, etc.). */
+export const photoPool: ImageRef[] = [
+  img.doctorPatient,
+  img.eventCrowd,
+  img.bloodDonation,
+  img.students,
+  img.volunteers,
+  img.celebration,
+  img.familySmiling,
+  img.youthGroup,
+  img.nurse,
+  img.motherChild,
+  img.counselling,
+  img.teamMeeting,
+];
+
+/** Deterministic pick from the pool by index (wraps around). */
+export const poolAt = (i: number): ImageRef => photoPool[i % photoPool.length];
+
+/** Fallback-safe lookups. */
+export const programImage = (slug: string): ImageRef =>
+  programImages[slug] ?? img.doctorPatient;
+export const newsImage = (slug: string): ImageRef =>
+  newsImages[slug] ?? img.celebration;

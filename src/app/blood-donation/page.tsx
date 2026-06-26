@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { img } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
 import { SmartForm, type Field } from "@/components/form";
@@ -315,12 +316,21 @@ export default function BloodDonationPage() {
       <Section tone="grey">
         <Reveal>
           <div className="grid items-center gap-10 overflow-hidden rounded-3xl border border-line bg-white shadow-sm lg:grid-cols-2">
-            <div className="relative flex min-h-72 items-center justify-center bg-gradient-to-br from-navy to-navy-light p-10">
-              <div className="absolute inset-0 bg-dotgrid opacity-30" />
-              <div className="relative text-center text-white">
-                <Icon.users className="mx-auto h-14 w-14" />
-                <p className="mt-4 text-2xl font-bold">One company. Hundreds of pints.</p>
-                <p className="mt-2 text-white/80">Your team can save dozens of warriors in a single afternoon.</p>
+            <div className="relative min-h-72">
+              <Photo
+                src={img.bloodDonation.src}
+                alt={img.bloodDonation.alt}
+                className="h-full min-h-72 w-full"
+                imgClassName="transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                overlay="strong"
+                rounded="rounded-none"
+              />
+              <div className="absolute inset-0 z-10 flex items-center justify-center p-10">
+                <div className="text-center text-white">
+                  <p className="text-2xl font-bold">One company. Hundreds of pints.</p>
+                  <p className="mt-2 text-white/80">Your team can save dozens of warriors in a single afternoon.</p>
+                </div>
               </div>
             </div>
             <div className="p-8 sm:p-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { img } from "@/lib/images";
+import { img, type ImageRef } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import Link from "next/link";
 import { events } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -30,15 +31,15 @@ const categories: { name: string; icon: IconName }[] = [
   { name: "Conferences", icon: "users" },
 ];
 
-const galleryTiles: { icon: IconName; label: string; from: string; to: string }[] = [
-  { icon: "heart", label: "Walk for Sickle Cell", from: "from-primary", to: "to-primary-dark" },
-  { icon: "droplet", label: "Blood Drive Lagos", from: "from-navy", to: "to-navy-light" },
-  { icon: "stethoscope", label: "Kano Outreach", from: "from-primary-dark", to: "to-navy" },
-  { icon: "globe", label: "World SCD Day", from: "from-navy-light", to: "to-primary" },
-  { icon: "users", label: "Warrior Conference", from: "from-primary", to: "to-navy" },
-  { icon: "graduation", label: "School Tour", from: "from-navy", to: "to-primary-dark" },
-  { icon: "gift", label: "Fundraising Dinner", from: "from-primary-dark", to: "to-primary" },
-  { icon: "spark", label: "Youth Camp", from: "from-navy-light", to: "to-navy" },
+const galleryTiles: { label: string; image: ImageRef }[] = [
+  { label: "Walk for Sickle Cell", image: img.eventCrowd },
+  { label: "Blood Drive Lagos", image: img.bloodDonation },
+  { label: "Kano Outreach", image: img.doctorPatient },
+  { label: "World SCD Day", image: img.celebration },
+  { label: "Warrior Conference", image: img.youthGroup },
+  { label: "School Tour", image: img.students },
+  { label: "Fundraising Dinner", image: img.volunteers },
+  { label: "Youth Camp", image: img.motherChild },
 ];
 
 export default function EventsPage() {
@@ -63,13 +64,20 @@ export default function EventsPage() {
           </Reveal>
           <Reveal delay={80}>
             <article className="mt-6 grid overflow-hidden rounded-3xl border border-line bg-white shadow-sm lg:grid-cols-2">
-              <div className="relative flex min-h-64 items-center justify-center bg-gradient-to-br from-primary to-primary-dark p-10">
-                <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                <div className="relative text-center text-white">
-                  <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20">
+              <div className="relative min-h-64">
+                <Photo
+                  src={img.celebration.src}
+                  alt={img.celebration.alt}
+                  className="h-full min-h-64 w-full"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  rounded="rounded-none"
+                  overlay="strong"
+                />
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-10 text-center text-white">
+                  <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20 backdrop-blur-sm">
                     <Icon.calendar className="h-10 w-10" />
                   </span>
-                  <p className="mt-5 text-sm font-bold uppercase tracking-wider text-white/80">
+                  <p className="mt-5 text-sm font-bold uppercase tracking-wider text-white/90">
                     {featured.date}
                   </p>
                 </div>
@@ -209,22 +217,24 @@ export default function EventsPage() {
           intro="A glimpse of the smiles, solidarity and impact from SSCN events nationwide."
         />
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {galleryTiles.map((t, i) => {
-            const C = Icon[t.icon];
-            return (
-              <Reveal key={t.label} delay={(i % 4) * 70}>
-                <div
-                  className={`group relative flex aspect-square items-end overflow-hidden rounded-3xl bg-gradient-to-br ${t.from} ${t.to} p-5`}
-                >
-                  <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                  <C className="absolute right-4 top-4 h-9 w-9 text-white/80 transition-transform duration-300 group-hover:scale-110" />
-                  <span className="relative text-sm font-bold text-white">
-                    {t.label}
-                  </span>
-                </div>
-              </Reveal>
-            );
-          })}
+          {galleryTiles.map((t, i) => (
+            <Reveal key={t.label} delay={(i % 4) * 70}>
+              <div className="group relative flex aspect-square items-end overflow-hidden rounded-3xl p-5">
+                <Photo
+                  src={t.image.src}
+                  alt={t.image.alt}
+                  className="absolute inset-0 h-full w-full"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  rounded="rounded-none"
+                  overlay="strong"
+                />
+                <span className="relative z-10 text-sm font-bold text-white">
+                  {t.label}
+                </span>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Section>
 

@@ -11,7 +11,7 @@ import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
 import { PartnersMarquee } from "@/components/marquee";
 import { Photo } from "@/components/photo";
-import { img } from "@/lib/images";
+import { img, programImage, newsImage } from "@/lib/images";
 import { Icon } from "@/components/icons";
 import {
   Button,
@@ -345,10 +345,16 @@ function FeaturedPrograms() {
         {featured.map((p, i) => (
           <Reveal key={p.slug} delay={i * 100}>
             <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-              <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-navy to-navy-light">
-                <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                <Icon.heart className="h-14 w-14 text-white/90" />
-                <span className="absolute left-4 top-4">
+              <div className="relative h-44">
+                <Photo
+                  src={programImage(p.slug).src}
+                  alt={programImage(p.slug).alt}
+                  className="h-44 w-full"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  rounded="rounded-none"
+                />
+                <span className="absolute left-4 top-4 z-10">
                   <Badge tone="red">{p.tag}</Badge>
                 </span>
               </div>
@@ -551,8 +557,15 @@ function LatestNews() {
         {news.map((n, i) => (
           <Reveal key={n.slug} delay={(i % 4) * 80}>
             <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-navy/5">
-              <div className="flex h-32 items-center justify-center bg-gradient-to-br from-primary-soft to-grey">
-                <Icon.book className="h-10 w-10 text-primary/50" />
+              <div className="relative h-36">
+                <Photo
+                  src={newsImage(n.slug).src}
+                  alt={newsImage(n.slug).alt}
+                  className="h-36 w-full"
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  rounded="rounded-none"
+                />
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-center gap-2 text-xs text-muted">

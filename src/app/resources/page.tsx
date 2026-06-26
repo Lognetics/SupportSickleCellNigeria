@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { img } from "@/lib/images";
+import { img, type ImageRef } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { Icon, type IconName } from "@/components/icons";
@@ -30,6 +31,7 @@ type ResourceGroup = {
   intro: string;
   icon: IconName;
   gradient: "navy" | "soft";
+  thumb: ImageRef;
   items: ResourceItem[];
 };
 
@@ -41,6 +43,7 @@ const groups: ResourceGroup[] = [
       "Peer-reviewed studies and Nigerian field research on sickle cell disorder, treatment outcomes and prevention.",
     icon: "flask",
     gradient: "navy",
+    thumb: img.labResearch,
     items: [
       {
         title: "Hydroxyurea Adherence in Nigerian Warriors",
@@ -69,6 +72,7 @@ const groups: ResourceGroup[] = [
       "Practical, evidence-based protocols for clinicians, caregivers and warriors managing the disorder.",
     icon: "stethoscope",
     gradient: "soft",
+    thumb: img.doctorPatient,
     items: [
       {
         title: "Acute Pain Crisis Management Protocol",
@@ -97,6 +101,7 @@ const groups: ResourceGroup[] = [
       "Shareable, easy-to-read graphics that explain genotype, inheritance and daily self-care.",
     icon: "spark",
     gradient: "soft",
+    thumb: img.students,
     items: [
       {
         title: "Know Your Genotype",
@@ -125,6 +130,7 @@ const groups: ResourceGroup[] = [
       "Short, accessible explainer videos for warriors, families, schools and the wider public.",
     icon: "megaphone",
     gradient: "navy",
+    thumb: img.students,
     items: [
       {
         title: "Sickle Cell Explained in 5 Minutes",
@@ -153,6 +159,7 @@ const groups: ResourceGroup[] = [
       "Recommended reading for warriors, caregivers and advocates — from self-care to children's stories.",
     icon: "book",
     gradient: "soft",
+    thumb: img.celebration,
     items: [
       {
         title: "Living Well with Sickle Cell",
@@ -181,6 +188,7 @@ const groups: ResourceGroup[] = [
       "Conversations with doctors, warriors and advocates — listen on your commute or during care.",
     icon: "chat",
     gradient: "navy",
+    thumb: img.youthGroup,
     items: [
       {
         title: "Warrior Voices · Episode 1",
@@ -209,6 +217,7 @@ const groups: ResourceGroup[] = [
       "Position papers and submissions supporting better sickle cell policy across Nigeria.",
     icon: "scale",
     gradient: "soft",
+    thumb: img.teamMeeting,
     items: [
       {
         title: "National Sickle Cell Policy Brief",
@@ -380,28 +389,19 @@ export default function ResourcesPage() {
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((item, i) => {
-              const ItemIcon = Icon[group.icon];
               return (
                 <Reveal key={item.title} delay={(i % 3) * 80}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-                    <div
-                      className={`relative flex h-36 items-center justify-center ${
-                        group.gradient === "navy"
-                          ? "bg-gradient-to-br from-navy to-navy-light"
-                          : "bg-gradient-to-br from-primary-soft to-grey"
-                      }`}
-                    >
-                      {group.gradient === "navy" && (
-                        <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                      )}
-                      <ItemIcon
-                        className={`h-12 w-12 ${
-                          group.gradient === "navy"
-                            ? "text-white/90"
-                            : "text-primary/50"
-                        }`}
+                    <div className="relative h-36">
+                      <Photo
+                        src={group.thumb.src}
+                        alt={group.thumb.alt}
+                        className="h-36 w-full"
+                        imgClassName="transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        rounded="rounded-none"
                       />
-                      <span className="absolute left-4 top-4">
+                      <span className="absolute left-4 top-4 z-10">
                         <Badge tone={group.gradient === "navy" ? "red" : "navy"}>
                           {item.type}
                         </Badge>

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { img } from "@/lib/images";
+import { img, poolAt } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import Link from "next/link";
 import { shopItems, donationTiers } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
-import { Icon, type IconName } from "@/components/icons";
+import { Icon } from "@/components/icons";
 import {
   Button,
   Eyebrow,
@@ -18,15 +19,6 @@ export const metadata: Metadata = {
   title: "Shop for a Cause | Support Sickle Cell Nigeria",
   description:
     "Wear the message and fund the mission. Every t-shirt, wristband, book and gift card in the SSCN shop helps fund treatment, testing and emergency care for sickle cell warriors across Nigeria.",
-};
-
-/* Map shop categories to brand icons */
-const categoryIcon: Record<string, IconName> = {
-  Apparel: "heart",
-  Accessories: "spark",
-  Lifestyle: "gift",
-  Books: "book",
-  Donation: "globe",
 };
 
 const categories = ["All", "Apparel", "Accessories", "Lifestyle", "Books", "Donation"];
@@ -72,14 +64,21 @@ export default function ShopPage() {
         {/* Product grid */}
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {shopItems.map((item, i) => {
-            const ProductIcon = Icon[categoryIcon[item.category] ?? "heart"];
+            const sImg = poolAt(i);
             return (
               <Reveal key={item.name} delay={(i % 4) * 80}>
                 <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-                  <div className="relative flex h-44 items-center justify-center bg-gradient-to-br from-primary-soft to-grey">
-                    <ProductIcon className="h-14 w-14 text-primary/50" />
+                  <div className="relative h-44">
+                    <Photo
+                      src={sImg.src}
+                      alt={sImg.alt}
+                      className="h-44 w-full"
+                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      rounded="rounded-none"
+                    />
                     {item.tag && (
-                      <span className="absolute left-4 top-4">
+                      <span className="absolute left-4 top-4 z-10">
                         <Badge tone="red">{item.tag}</Badge>
                       </span>
                     )}

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { img } from "@/lib/images";
+import { img, newsImage } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import Link from "next/link";
 import { news } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
-import { Icon, type IconName } from "@/components/icons";
+import { Icon } from "@/components/icons";
 import {
   Button,
   Eyebrow,
@@ -17,17 +18,6 @@ export const metadata: Metadata = {
   title: "News & Blog | Support Sickle Cell Nigeria",
   description:
     "Medical breakthroughs, organisation updates, events, research and stories of hope from the SSCN newsroom — keeping Nigeria informed on the fight against sickle cell.",
-};
-
-/* Category → icon mapping for thumbnails. */
-const categoryIcon: Record<string, IconName> = {
-  "Medical News": "stethoscope",
-  "Organization News": "megaphone",
-  Events: "calendar",
-  Research: "flask",
-  "Success Stories": "star",
-  "Government Policies": "scale",
-  "Health Tips": "heart",
 };
 
 const categories = [
@@ -74,13 +64,16 @@ export default function NewsPage() {
       <Section tone="white">
         <Reveal>
           <article className="group grid overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:shadow-xl hover:shadow-navy/5 lg:grid-cols-2">
-            <div className="relative flex min-h-[16rem] items-center justify-center bg-gradient-to-br from-navy to-navy-light">
-              <div className="absolute inset-0 bg-dotgrid opacity-30" />
-              {(() => {
-                const FeatureIcon = Icon[categoryIcon[featured.category] ?? "book"];
-                return <FeatureIcon className="relative h-20 w-20 text-white/90" />;
-              })()}
-              <span className="absolute left-5 top-5">
+            <div className="relative min-h-[16rem]">
+              <Photo
+                src={newsImage(featured.slug).src}
+                alt={newsImage(featured.slug).alt}
+                className="h-full min-h-[16rem] w-full"
+                imgClassName="transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                rounded="rounded-none"
+              />
+              <span className="absolute left-5 top-5 z-10">
                 <Badge tone="red">Featured</Badge>
               </span>
             </div>
@@ -137,13 +130,20 @@ export default function NewsPage() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((n, i) => {
-            const ThumbIcon = Icon[categoryIcon[n.category] ?? "book"];
+            const nImg = newsImage(n.slug);
             return (
               <Reveal key={n.slug} delay={(i % 3) * 80}>
                 <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-navy/5">
-                  <div className="relative flex h-36 items-center justify-center bg-gradient-to-br from-primary-soft to-grey">
-                    <ThumbIcon className="h-12 w-12 text-primary/50" />
-                    <span className="absolute left-4 top-4">
+                  <div className="relative h-36">
+                    <Photo
+                      src={nImg.src}
+                      alt={nImg.alt}
+                      className="h-36 w-full"
+                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      rounded="rounded-none"
+                    />
+                    <span className="absolute left-4 top-4 z-10">
                       <Badge tone="red">{n.category}</Badge>
                     </span>
                   </div>

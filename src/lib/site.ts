@@ -59,6 +59,7 @@ export const navLinks: NavLink[] = [
 
 /* Primary links shown directly in the desktop bar; the rest go in "More" */
 export const primaryNav: NavLink[] = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Understanding SCD", href: "/understanding-sickle-cell" },
   { label: "Programs", href: "/programs" },

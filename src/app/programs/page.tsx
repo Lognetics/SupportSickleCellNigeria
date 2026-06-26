@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { img } from "@/lib/images";
+import { img, programImage } from "@/lib/images";
+import { Photo } from "@/components/photo";
 import Link from "next/link";
 import { programs } from "@/lib/site";
 import { Icon, type IconName } from "@/components/icons";
@@ -17,17 +18,6 @@ export const metadata: Metadata = {
   title: "Our Programs | Support Sickle Cell Nigeria",
   description:
     "Explore SSCN's nationwide programs — healthcare, medication, education, awareness, counselling, emergency relief, scholarships and research — for warriors and families across all 36 states and the FCT.",
-};
-
-/* Map a program tag to an icon + gradient look */
-const tagIcon: Record<string, IconName> = {
-  Healthcare: "stethoscope",
-  Education: "book",
-  Awareness: "megaphone",
-  Empowerment: "spark",
-  Counselling: "chat",
-  Relief: "heart",
-  Research: "flask",
 };
 
 const categories = [
@@ -100,14 +90,20 @@ export default function ProgramsPage() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {programs.map((p, i) => {
-            const Glyph = Icon[tagIcon[p.tag] ?? "heart"];
+            const pImg = programImage(p.slug);
             return (
               <Reveal key={p.slug} delay={(i % 3) * 90}>
                 <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-                  <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-navy to-navy-light">
-                    <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                    <Glyph className="h-14 w-14 text-white/90" />
-                    <span className="absolute left-4 top-4">
+                  <div className="relative h-40">
+                    <Photo
+                      src={pImg.src}
+                      alt={pImg.alt}
+                      className="h-40 w-full"
+                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      rounded="rounded-none"
+                    />
+                    <span className="absolute left-4 top-4 z-10">
                       <Badge tone="red">{p.tag}</Badge>
                     </span>
                   </div>
