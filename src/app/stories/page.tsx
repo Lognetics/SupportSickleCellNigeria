@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { img, type ImageRef } from "@/lib/images";
 import type { Metadata } from "next";
 import { stories } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
+import { Photo } from "@/components/photo";
 import { Icon } from "@/components/icons";
 import { SmartForm } from "@/components/form";
 import {
@@ -18,12 +20,17 @@ export const metadata: Metadata = {
     "Real stories from sickle cell warriors, families, doctors and volunteers across Nigeria — courage, comebacks and the community rewriting what it means to live with sickle cell.",
 };
 
-const categoryGradients: Record<string, string> = {
-  Survivor: "from-primary to-primary-dark",
-  Family: "from-navy to-navy-light",
-  Doctor: "from-navy-light to-navy",
-  Volunteer: "from-primary-dark to-primary",
+const storyImages: Record<string, ImageRef> = {
+  "amaras-comeback": img.portrait5,
+  "a-fathers-promise": img.portrait4,
+  "the-volunteer-doctor": img.doctorPatient,
+  "from-patient-to-advocate": img.portrait3,
+  "the-blood-that-saved-me": img.portrait2,
+  "raising-a-warrior": img.motherChild,
 };
+
+const storyImage = (slug: string): ImageRef =>
+  storyImages[slug] ?? img.portrait1;
 
 const categoryChips = ["Survivor", "Family", "Doctor", "Volunteer"];
 
@@ -61,6 +68,8 @@ export default function StoriesPage() {
   return (
     <>
       <PageHero
+        image={img.celebration.src}
+        imageAlt={img.celebration.alt}
         eyebrow="Stories of Hope"
         title="Every warrior has a story worth telling"
         intro="Behind every statistic is a person — a child who fought through their first crisis, a parent who turned grief into action, a doctor who answered a quiet call. These are the voices of the SSCN community, in their own words."
@@ -77,19 +86,18 @@ export default function StoriesPage() {
         />
         <Reveal className="mt-10">
           <article className="grid overflow-hidden rounded-3xl border border-line bg-white shadow-sm lg:grid-cols-2">
-            <div
-              className={`relative flex min-h-[18rem] items-center justify-center bg-gradient-to-br ${
-                categoryGradients[featured.category] ?? "from-primary to-primary-dark"
-              } p-10`}
-            >
-              <div className="absolute inset-0 bg-dotgrid opacity-30" />
-              <span className="absolute left-6 top-6">
+            <div className="relative min-h-[18rem]">
+              <Photo
+                src={storyImage(featured.slug).src}
+                alt={storyImage(featured.slug).alt}
+                className="h-full min-h-[18rem] w-full"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                rounded="rounded-none"
+              />
+              <span className="absolute left-6 top-6 z-10">
                 <Badge tone="red">{featured.category}</Badge>
               </span>
-              <span className="relative flex h-32 w-32 items-center justify-center rounded-full bg-white/15 text-5xl font-extrabold text-white ring-1 ring-white/25">
-                {featured.name.charAt(0)}
-              </span>
-              <Icon.quote className="absolute bottom-6 right-6 h-12 w-12 text-white/25" />
+              <Icon.quote className="absolute bottom-6 right-6 z-10 h-12 w-12 text-white/60" />
             </div>
             <div className="flex flex-col justify-center p-8 sm:p-12">
               <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -144,16 +152,16 @@ export default function StoriesPage() {
           {rest.map((s, i) => (
             <Reveal key={s.slug} delay={(i % 3) * 80}>
               <article className="group break-inside-avoid overflow-hidden rounded-3xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-                <div
-                  className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${
-                    categoryGradients[s.category] ?? "from-navy to-navy-light"
-                  }`}
-                >
-                  <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                  <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/15 text-3xl font-extrabold text-white ring-1 ring-white/25">
-                    {s.name.charAt(0)}
-                  </span>
-                  <span className="absolute left-4 top-4">
+                <div className="relative h-44">
+                  <Photo
+                    src={storyImage(s.slug).src}
+                    alt={storyImage(s.slug).alt}
+                    className="h-44 w-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    rounded="rounded-none"
+                  />
+                  <span className="absolute left-4 top-4 z-10">
                     <Badge tone="red">{s.category}</Badge>
                   </span>
                 </div>

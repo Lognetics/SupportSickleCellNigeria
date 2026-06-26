@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
 import { SmartForm, type Field } from "@/components/form";
@@ -119,6 +120,8 @@ export default function BloodDonationPage() {
   return (
     <>
       <PageHero
+        image={img.bloodDonation.src}
+        imageAlt={img.bloodDonation.alt}
         eyebrow="Blood Donation"
         title="A pint of blood can carry a warrior through their darkest hour."
         intro="For people living with sickle cell, a timely transfusion is often the line between crisis and recovery. Roll up your sleeve and help us keep that line unbroken."

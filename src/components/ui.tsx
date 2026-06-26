@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons";
+import { Photo } from "@/components/photo";
 
 /* ---------------- Button ---------------- */
 
@@ -173,19 +174,23 @@ export function PageHero({
   title,
   intro,
   breadcrumb,
+  image,
+  imageAlt,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
   breadcrumb?: string;
+  image?: string;
+  imageAlt?: string;
 }) {
   return (
     <section className="relative overflow-hidden bg-navy text-white">
       <div className="absolute inset-0 bg-dotgrid opacity-40" />
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
       <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
-      <div className="container-x relative py-20 sm:py-28">
-        <div className="max-w-3xl">
+      <div className="container-x relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:py-24">
+        <div className={image ? "" : "max-w-3xl"}>
           {breadcrumb && (
             <p className="mb-4 text-sm font-medium text-white/60">{breadcrumb}</p>
           )}
@@ -204,6 +209,18 @@ export function PageHero({
             </p>
           )}
         </div>
+        {image && (
+          <div className="relative">
+            <Photo
+              src={image}
+              alt={imageAlt ?? title}
+              priority
+              className="aspect-[5/4] w-full shadow-2xl ring-1 ring-white/10"
+              sizes="(max-width: 1024px) 100vw, 48vw"
+            />
+            <div className="absolute -bottom-4 -left-4 h-24 w-24 rounded-2xl bg-primary/30 blur-xl" />
+          </div>
+        )}
       </div>
     </section>
   );

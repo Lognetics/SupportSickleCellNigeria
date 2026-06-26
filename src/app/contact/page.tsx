@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -111,6 +112,8 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        image={img.teamMeeting.src}
+        imageAlt={img.teamMeeting.alt}
         eyebrow="Contact Us"
         title="We are here for every warrior — let's talk"
         intro="Whether you need support, want to volunteer, hope to partner with us or simply have a question, our team is ready to help."

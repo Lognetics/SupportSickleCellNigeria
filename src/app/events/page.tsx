@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { events } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -46,6 +47,8 @@ export default function EventsPage() {
   return (
     <>
       <PageHero
+        image={img.eventCrowd.src}
+        imageAlt={img.eventCrowd.alt}
         eyebrow="Events & Calendar"
         title="Show up. Stand together. Change the story."
         intro="From 5km walks to free testing drives and fundraising dinners, every SSCN event is a chance to support warriors and spread hope across Nigeria."

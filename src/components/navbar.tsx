@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { primaryNav, moreNav, navLinks } from "@/lib/site";
+import { primaryNav, moreNav, navLinks, site } from "@/lib/site";
 import { Icon } from "@/components/icons";
 import { Logo } from "@/components/logo";
 
@@ -50,7 +50,7 @@ export function Navbar() {
         <div className="container-x flex h-9 items-center justify-between text-xs">
           <div className="flex items-center gap-5">
             <span className="inline-flex items-center gap-1.5">
-              <Icon.phone className="h-3.5 w-3.5" /> Emergency: +234 911 000 0000
+              <Icon.phone className="h-3.5 w-3.5" /> Emergency: {site.emergency}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Icon.mail className="h-3.5 w-3.5" /> hello@supportsicklecell.ng

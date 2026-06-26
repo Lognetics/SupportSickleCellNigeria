@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { shopItems, donationTiers } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -34,6 +35,8 @@ export default function ShopPage() {
   return (
     <>
       <PageHero
+        image={img.youthGroup.src}
+        imageAlt={img.youthGroup.alt}
         eyebrow="Shop for a Cause"
         title="Wear the message. Fund the mission."
         intro="Every purchase from the SSCN store turns awareness merchandise into real care — treatment, testing, blood and emergency support for warriors nationwide. Look good, do good."

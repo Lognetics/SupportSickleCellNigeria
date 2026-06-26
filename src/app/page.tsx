@@ -10,6 +10,8 @@ import {
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
 import { PartnersMarquee } from "@/components/marquee";
+import { Photo } from "@/components/photo";
+import { img } from "@/lib/images";
 import { Icon } from "@/components/icons";
 import {
   Button,
@@ -115,19 +117,24 @@ function Hero() {
 
         {/* Visual card cluster */}
         <div className="relative animate-[fade-up_1s_cubic-bezier(0.22,1,0.36,1)_both]">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary-dark p-8 shadow-2xl">
-            <div className="absolute inset-0 bg-dotgrid opacity-30" />
-            <div className="relative flex h-full flex-col justify-between text-white">
-              <Icon.heart className="h-12 w-12 animate-[float_4s_ease-in-out_infinite]" />
-              <div>
-                <p className="text-2xl font-bold leading-snug">
-                  &ldquo;A warrior, not a victim.&rdquo;
-                </p>
-                <p className="mt-3 text-white/80">
-                  Every act of support — a test, a pint of blood, a donation —
-                  rewrites a life.
-                </p>
-              </div>
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-md">
+            <Photo
+              src={img.heroCommunity.src}
+              alt={img.heroCommunity.alt}
+              priority
+              className="h-full w-full shadow-2xl ring-1 ring-white/10"
+              sizes="(max-width: 1024px) 90vw, 40vw"
+              overlay="strong"
+            />
+            <div className="absolute inset-0 flex flex-col justify-end p-7 text-white">
+              <Icon.quote className="h-9 w-9 text-white/70" />
+              <p className="mt-2 text-2xl font-bold leading-snug">
+                &ldquo;A warrior, not a victim.&rdquo;
+              </p>
+              <p className="mt-2 text-sm text-white/85">
+                Every act of support — a test, a pint of blood, a donation —
+                rewrites a life.
+              </p>
             </div>
           </div>
 
@@ -213,22 +220,18 @@ function AboutIntro() {
         <Reveal>
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="flex aspect-square items-center justify-center rounded-3xl bg-primary text-white">
-                  <Icon.heart className="h-16 w-16" />
-                </div>
-                <div className="flex aspect-[4/5] items-center justify-center rounded-3xl bg-navy text-white">
-                  <Icon.users className="h-14 w-14" />
-                </div>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="flex aspect-[4/5] items-center justify-center rounded-3xl bg-primary-soft text-primary">
-                  <Icon.stethoscope className="h-14 w-14" />
-                </div>
-                <div className="flex aspect-square items-center justify-center rounded-3xl bg-grey text-navy">
-                  <Icon.dna className="h-16 w-16" />
-                </div>
-              </div>
+              <Photo
+                src={img.doctorPatient.src}
+                alt={img.doctorPatient.alt}
+                className="aspect-[3/4] w-full"
+                sizes="(max-width: 1024px) 45vw, 24vw"
+              />
+              <Photo
+                src={img.motherChild.src}
+                alt={img.motherChild.alt}
+                className="mt-8 aspect-[3/4] w-full"
+                sizes="(max-width: 1024px) 45vw, 24vw"
+              />
             </div>
             <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-2xl bg-white px-5 py-3 shadow-xl shadow-navy/10 ring-1 ring-line">
               <span className="font-heading text-2xl font-extrabold text-primary">

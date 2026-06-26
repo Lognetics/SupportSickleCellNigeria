@@ -8,9 +8,9 @@ export const site = {
   tagline:
     "Supporting lives through awareness, healthcare, advocacy, education, and community across Nigeria.",
   email: "hello@supportsicklecell.ng",
-  phone: "+234 800 000 0000",
-  emergency: "+234 911 000 0000",
-  whatsapp: "+234 800 000 0000",
+  phone: "+234 806 287 3981",
+  emergency: "+234 806 287 3981",
+  whatsapp: "+234 806 287 3981",
   address: "Plot 12, Health Way, Central Business District, Abuja, Nigeria",
   socials: {
     facebook: "https://facebook.com",
@@ -19,6 +19,21 @@ export const site = {
     youtube: "https://youtube.com",
     linkedin: "https://linkedin.com",
   },
+};
+
+export const founder = {
+  name: "Barr. Eyo Ugo",
+  role: "Founder & President",
+  title: "A message from our Founder",
+  message:
+    "I founded Support Sickle Cell Nigeria because no family should walk the sickle cell journey alone. For too long, our warriors have faced this condition with too little awareness, too little support and too much stigma. We are here to change that — to bring care closer, to make genotype testing the norm, and to remind every warrior that they are seen, valued and never alone.",
+  vision:
+    "Our vision is a Nigeria where knowledge prevents new cases, where every warrior can access quality care, and where compassion replaces stigma in every community.",
+  bio: [
+    "A barrister by training and an advocate by calling, Barr. Eyo Ugo has spent over a decade championing the rights and welfare of people living with sickle cell disorder across Nigeria.",
+    "Moved by the struggles of warriors and families in underserved communities, the founder built SSCN into a national movement uniting healthcare professionals, volunteers, partners and policymakers around a single goal: a better, healthier future for every sickle cell warrior.",
+  ],
+  signature: "Barr. Eyo Ugo",
 };
 
 export type NavLink = { label: string; href: string };

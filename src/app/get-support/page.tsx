@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import { site } from "@/lib/site";
 import { Icon, type IconName } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
@@ -186,6 +187,8 @@ export default function GetSupportPage() {
   return (
     <>
       <PageHero
+        image={img.nurse.src}
+        imageAlt={img.nurse.alt}
         breadcrumb="Home / Get Support"
         eyebrow="Get Support"
         title="You don't have to face sickle cell alone"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
 import { SmartForm } from "@/components/form";

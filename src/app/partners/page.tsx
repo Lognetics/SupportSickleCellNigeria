@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import { partners } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { PartnersMarquee } from "@/components/marquee";
@@ -179,6 +180,8 @@ export default function PartnersPage() {
   return (
     <>
       <PageHero
+        image={img.teamMeeting.src}
+        imageAlt={img.teamMeeting.alt}
         eyebrow="Partnerships"
         title="Together, we change the story of sickle cell"
         intro="No single organisation can do this alone. With hospitals, corporates, NGOs, government and global allies, SSCN reaches further, faster — and every partnership becomes care for a warrior."

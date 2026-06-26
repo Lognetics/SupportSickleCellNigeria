@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { img, type ImageRef } from "@/lib/images";
 import { Reveal } from "@/components/reveal";
-import { Icon, type IconName } from "@/components/icons";
+import { Photo } from "@/components/photo";
 import {
   Button,
   Badge,
@@ -18,97 +19,24 @@ export const metadata: Metadata = {
 type Tile = {
   caption: string;
   category: string;
-  icon: IconName;
-  gradient: string;
+  image: ImageRef;
   /* aspect tailwind class for varied masonry heights */
   span: string;
 };
 
 const tiles: Tile[] = [
-  {
-    caption: "Free testing camp, Kano",
-    category: "Medical Outreach",
-    icon: "stethoscope",
-    gradient: "from-navy to-navy-light",
-    span: "aspect-[4/5]",
-  },
-  {
-    caption: "World Sickle Cell Day walk",
-    category: "Events",
-    icon: "calendar",
-    gradient: "from-primary to-primary-dark",
-    span: "aspect-square",
-  },
-  {
-    caption: "Corporate blood drive, Lagos",
-    category: "Blood Drives",
-    icon: "droplet",
-    gradient: "from-primary-dark to-primary",
-    span: "aspect-[4/3]",
-  },
-  {
-    caption: "Genotype awareness rally",
-    category: "Awareness Campaigns",
-    icon: "megaphone",
-    gradient: "from-navy-light to-navy",
-    span: "aspect-square",
-  },
-  {
-    caption: "Humanitarian Impact Award 2025",
-    category: "Awards",
-    icon: "star",
-    gradient: "from-navy to-navy-light",
-    span: "aspect-[4/5]",
-  },
-  {
-    caption: "Warriors' family picnic",
-    category: "Community Engagement",
-    icon: "users",
-    gradient: "from-primary to-primary-dark",
-    span: "aspect-[4/3]",
-  },
-  {
-    caption: "Rural clinic outreach, Benue",
-    category: "Medical Outreach",
-    icon: "heart",
-    gradient: "from-navy-light to-navy",
-    span: "aspect-square",
-  },
-  {
-    caption: "Donor recognition night",
-    category: "Blood Drives",
-    icon: "gift",
-    gradient: "from-primary-dark to-primary",
-    span: "aspect-[4/5]",
-  },
-  {
-    caption: "School awareness session, Abuja",
-    category: "Awareness Campaigns",
-    icon: "graduation",
-    gradient: "from-navy to-navy-light",
-    span: "aspect-[4/3]",
-  },
-  {
-    caption: "Annual warriors' summit",
-    category: "Events",
-    icon: "globe",
-    gradient: "from-primary to-primary-dark",
-    span: "aspect-square",
-  },
-  {
-    caption: "Volunteer of the Year honours",
-    category: "Awards",
-    icon: "shield",
-    gradient: "from-navy-light to-navy",
-    span: "aspect-square",
-  },
-  {
-    caption: "Community health fair, Enugu",
-    category: "Community Engagement",
-    icon: "chat",
-    gradient: "from-primary-dark to-primary",
-    span: "aspect-[4/5]",
-  },
+  { caption: "Free testing camp, Kano", category: "Medical Outreach", image: img.nurse, span: "aspect-[4/5]" },
+  { caption: "World Sickle Cell Day walk", category: "Events", image: img.eventCrowd, span: "aspect-square" },
+  { caption: "Corporate blood drive, Lagos", category: "Blood Drives", image: img.bloodDonation, span: "aspect-[4/3]" },
+  { caption: "Genotype awareness rally", category: "Awareness Campaigns", image: img.celebration, span: "aspect-square" },
+  { caption: "Humanitarian Impact Award 2025", category: "Awards", image: img.teamMeeting, span: "aspect-[4/5]" },
+  { caption: "Warriors' family picnic", category: "Community Engagement", image: img.familySmiling, span: "aspect-[4/3]" },
+  { caption: "Rural clinic outreach, Benue", category: "Medical Outreach", image: img.doctorPatient, span: "aspect-square" },
+  { caption: "Donor recognition night", category: "Blood Drives", image: img.volunteers, span: "aspect-[4/5]" },
+  { caption: "School awareness session, Abuja", category: "Awareness Campaigns", image: img.students, span: "aspect-[4/3]" },
+  { caption: "Annual warriors' summit", category: "Events", image: img.youthGroup, span: "aspect-square" },
+  { caption: "Volunteer of the Year honours", category: "Awards", image: img.portrait6, span: "aspect-square" },
+  { caption: "Community health fair, Enugu", category: "Community Engagement", image: img.motherChild, span: "aspect-[4/5]" },
 ];
 
 const filterChips = [
@@ -143,6 +71,8 @@ export default function GalleryPage() {
   return (
     <>
       <PageHero
+        image={img.eventCrowd.src}
+        imageAlt={img.eventCrowd.alt}
         eyebrow="Gallery"
         title="The work, the warriors, the moments that matter"
         intro="From testing camps in the north to blood drives in Lagos, from award stages to community picnics — this is a visual record of a movement that refuses to let anyone face sickle cell alone."
@@ -174,27 +104,26 @@ export default function GalleryPage() {
 
         {/* Masonry grid */}
         <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {tiles.map((t, i) => {
-            const TileIcon = Icon[t.icon];
-            return (
-              <Reveal key={t.caption} delay={(i % 3) * 70}>
-                <figure
-                  className={`group relative flex break-inside-avoid items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br ${t.gradient} ${t.span}`}
-                >
-                  <div className="absolute inset-0 bg-dotgrid opacity-30" />
-                  <TileIcon className="relative h-16 w-16 text-white/80 transition-transform duration-300 group-hover:scale-110" />
-                  <span className="absolute left-4 top-4">
-                    <Badge tone="red">{t.category}</Badge>
-                  </span>
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 pt-10">
-                    <p className="text-sm font-semibold text-white">
-                      {t.caption}
-                    </p>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            );
-          })}
+          {tiles.map((t, i) => (
+            <Reveal key={t.caption} delay={(i % 3) * 70}>
+              <figure className="group relative break-inside-avoid overflow-hidden rounded-3xl">
+                <Photo
+                  src={t.image.src}
+                  alt={t.image.alt}
+                  className={`w-full ${t.span}`}
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  rounded="rounded-3xl"
+                />
+                <span className="absolute left-4 top-4 z-10">
+                  <Badge tone="red">{t.category}</Badge>
+                </span>
+                <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent p-5 pt-10">
+                  <p className="text-sm font-semibold text-white">{t.caption}</p>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </Section>
 

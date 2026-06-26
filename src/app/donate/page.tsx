@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { donationTiers } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -97,6 +98,8 @@ export default function DonatePage() {
   return (
     <>
       <PageHero
+        image={img.childSmiling.src}
+        imageAlt={img.childSmiling.alt}
         eyebrow="Donate"
         title="Your gift rewrites a warrior's story"
         intro="Every naira you give becomes a genotype test, a pint of blood, a dose of medication, a crisis survived. Give today and stand with the sickle cell community across all 36 states and the FCT."

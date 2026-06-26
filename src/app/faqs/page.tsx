@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import { faqs } from "@/lib/site";
 import { Accordion } from "@/components/accordion";
 import { Reveal } from "@/components/reveal";
@@ -143,6 +144,8 @@ export default function FaqsPage() {
   return (
     <>
       <PageHero
+        image={img.counselling.src}
+        imageAlt={img.counselling.alt}
         eyebrow="FAQs"
         title="Your questions, answered"
         intro="Everything you might want to know about sickle cell, SSCN and how to get involved. Can't find it here? We're one message away."

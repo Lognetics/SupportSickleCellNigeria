@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { programs } from "@/lib/site";
 import { Icon, type IconName } from "@/components/icons";
@@ -64,6 +65,8 @@ export default function ProgramsPage() {
   return (
     <>
       <PageHero
+        image={img.counselling.src}
+        imageAlt={img.counselling.alt}
         breadcrumb="Home / Programs"
         eyebrow="Our Programs"
         title="Programs that meet warriors where they are"

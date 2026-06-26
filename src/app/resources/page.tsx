@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { img } from "@/lib/images";
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { Icon, type IconName } from "@/components/icons";
@@ -331,6 +332,8 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
+        image={img.students.src}
+        imageAlt={img.students.alt}
         eyebrow="Resources"
         title="Knowledge that empowers every warrior"
         intro="A free, growing library of research, guidelines, videos, books and policy — plus a directory of hospitals, blood banks and emergency contacts across Nigeria."

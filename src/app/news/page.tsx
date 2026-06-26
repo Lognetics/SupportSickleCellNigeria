@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { news } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
@@ -61,6 +62,8 @@ export default function NewsPage() {
   return (
     <>
       <PageHero
+        image={img.motherChild.src}
+        imageAlt={img.motherChild.alt}
         eyebrow="News & Blog"
         title="From the SSCN newsroom"
         intro="Medical breakthroughs, organisation milestones, event recaps, research and stories of hope — everything moving the fight against sickle cell forward in Nigeria."

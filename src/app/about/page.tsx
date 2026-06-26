@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { stats } from "@/lib/site";
+import { stats, founder } from "@/lib/site";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
+import { Photo } from "@/components/photo";
+import { img } from "@/lib/images";
 import { Icon, type IconName } from "@/components/icons";
 import {
   Button,
@@ -99,7 +101,7 @@ const timeline = [
 ];
 
 const leadership = [
-  { name: "Adaeze Okonkwo", role: "Founder & Executive Director" },
+  { name: "Barr. Eyo Ugo", role: "Founder & President" },
   { name: "Ibrahim Sani", role: "Director of Programmes" },
   { name: "Funmilayo Adeyemi", role: "Director of Operations" },
   { name: "Emeka Nwosu", role: "Director of Partnerships" },
@@ -260,6 +262,50 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* Founder */}
+      <Section tone="navy">
+        <div className="grid items-center gap-12 lg:grid-cols-5">
+          <Reveal className="lg:col-span-2">
+            <div className="relative">
+              <Photo
+                src={img.founder.src}
+                alt={img.founder.alt}
+                className="aspect-[4/5] w-full shadow-2xl ring-1 ring-white/10"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute -bottom-5 -right-4 rounded-2xl bg-primary px-5 py-4 shadow-xl">
+                <p className="font-heading text-lg font-extrabold text-white">
+                  {founder.name}
+                </p>
+                <p className="text-sm text-white/85">{founder.role}</p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120} className="lg:col-span-3">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary-light" />
+              Meet Our Founder
+            </span>
+            <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl text-balance">
+              {founder.title}
+            </h2>
+            <Icon.quote className="mt-5 h-9 w-9 text-primary-light/60" />
+            <blockquote className="mt-2 text-lg leading-relaxed text-white/85">
+              &ldquo;{founder.message}&rdquo;
+            </blockquote>
+            <div className="mt-5 space-y-3 text-sm leading-relaxed text-white/70">
+              {founder.bio.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+            <p className="mt-6 font-heading text-xl font-bold italic text-primary-light">
+              {founder.signature}
+            </p>
           </Reveal>
         </div>
       </Section>

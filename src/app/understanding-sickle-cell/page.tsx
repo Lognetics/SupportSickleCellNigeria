@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { img } from "@/lib/images";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { Accordion } from "@/components/accordion";
@@ -57,6 +58,8 @@ export default function UnderstandingSickleCellPage() {
   return (
     <>
       <PageHero
+        image={img.doctorPatient.src}
+        imageAlt={img.doctorPatient.alt}
         eyebrow="Nigeria's largest sickle cell resource"
         title="Understanding Sickle Cell Disease"
         intro="A clear, accurate and reassuring guide to what sickle cell is, how it is inherited, how it is diagnosed and treated, and how every warrior can live a full, healthy life — written in plain language for Nigerian families."

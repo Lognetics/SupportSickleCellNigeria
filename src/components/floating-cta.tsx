@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
+import { site } from "@/lib/site";
+
+const waNumber = site.whatsapp.replace(/[^0-9]/g, "");
 
 export function FloatingCTA() {
   const [show, setShow] = useState(false);
@@ -23,7 +26,7 @@ export function FloatingCTA() {
       {open && (
         <div className="flex flex-col items-end gap-2.5">
           <a
-            href="https://wa.me/2348000000000"
+            href={`https://wa.me/${waNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-navy shadow-lg shadow-navy/10 ring-1 ring-line transition-transform hover:-translate-y-0.5"
