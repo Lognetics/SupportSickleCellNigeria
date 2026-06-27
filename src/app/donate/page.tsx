@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { img } from "@/lib/images";
-import Link from "next/link";
-import { donationTiers } from "@/lib/site";
+import { site } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { Icon } from "@/components/icons";
 import {
@@ -21,13 +20,12 @@ export const metadata: Metadata = {
     "Your gift funds genotype testing, life-saving crisis care, blood drives, awareness and research for sickle cell warriors across all 36 states and the FCT. Give once or monthly.",
 };
 
-const presetAmounts = ["₦5,000", "₦15,000", "₦50,000", "₦150,000", "Custom"];
-
-const GOAL = 100_000_000;
-const RAISED = 62_000_000;
-const percent = Math.round((RAISED / GOAL) * 100);
-
-const naira = (n: number) => "₦" + n.toLocaleString("en-NG");
+const giftImpacts = [
+  "Folic acid and pain medication that keep warriors crisis-free.",
+  "Free, confidential genotype testing and counselling at outreaches.",
+  "A unit of blood and crisis-care supplies during an emergency admission.",
+  "Awareness drives that prevent new cases of sickle cell.",
+];
 
 const waysToGive: { icon: Parameters<typeof IconCard>[0]["icon"]; title: string; text: string }[] = [
   {
@@ -87,13 +85,6 @@ const transparency = [
   "Registered non-profit with full regulatory compliance.",
 ];
 
-const calculatorRows = [
-  { amount: "₦10,000", impact: "Folic acid and pain medication for two warriors for a month." },
-  { amount: "₦30,000", impact: "Free genotype testing for 10 young people at an outreach." },
-  { amount: "₦100,000", impact: "A unit of blood plus crisis-care supplies for an admission." },
-  { amount: "₦500,000", impact: "A full free testing drive reaching 200+ people in one community." },
-];
-
 export default function DonatePage() {
   return (
     <>
@@ -106,136 +97,58 @@ export default function DonatePage() {
         breadcrumb="Home / Donate"
       />
 
-      {/* Donation widget + campaign goal */}
+      {/* Donate via Paystack */}
       <Section tone="grey">
-        <div className="grid items-start gap-10 lg:grid-cols-2">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
-            <div className="rounded-3xl border border-line bg-white p-7 shadow-xl shadow-navy/5 sm:p-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-navy">Make a donation</h2>
-                <Badge tone="red">Secure</Badge>
-              </div>
-
-              {/* One-time / Monthly toggle (visual only) */}
-              <div className="mt-5 grid grid-cols-2 gap-1 rounded-full bg-grey p-1">
-                <span className="rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-white shadow-sm">
-                  One-Time
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary-dark p-8 text-white shadow-xl shadow-primary/20 sm:p-10">
+              <div className="absolute inset-0 bg-dotgrid opacity-20" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider">
+                  <Icon.shield className="h-4 w-4" /> Secure online giving
                 </span>
-                <span className="rounded-full px-4 py-2 text-center text-sm font-semibold text-muted">
-                  Monthly
-                </span>
-              </div>
-
-              {/* Amount pills */}
-              <p className="mt-6 text-sm font-semibold text-navy">Choose an amount</p>
-              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {presetAmounts.map((amt, i) => (
-                  <span
-                    key={amt}
-                    className={`rounded-2xl border px-4 py-3 text-center text-sm font-bold transition-colors ${
-                      i === 2
-                        ? "border-primary bg-primary-soft text-primary"
-                        : "border-line bg-white text-navy"
-                    }`}
+                <h2 className="mt-4 text-2xl font-bold text-white sm:text-3xl text-balance">
+                  Give any amount, in seconds
+                </h2>
+                <p className="mt-3 text-white/85">
+                  Donate securely with your card, bank transfer, USSD or mobile
+                  money through our trusted payment partner. You choose the amount
+                  on the next screen.
+                </p>
+                <div className="mt-7">
+                  <Button
+                    href={site.donateUrl}
+                    external
+                    size="lg"
+                    variant="white"
+                    icon
+                    className="w-full sm:w-auto"
                   >
-                    {amt}
-                  </span>
-                ))}
+                    Donate with Paystack
+                  </Button>
+                </div>
+                <p className="mt-4 flex items-center gap-2 text-xs text-white/75">
+                  <Icon.shield className="h-4 w-4" />
+                  Payments are processed securely by Paystack. SSCN never stores
+                  your card details.
+                </p>
               </div>
-
-              <div className="mt-6">
-                <Button href="/contact" size="lg" className="w-full" icon>
-                  Donate Now
-                </Button>
-              </div>
-              <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted">
-                <Icon.shield className="h-4 w-4 text-primary" />
-                Front-end mockup — no live payment is processed.
-              </p>
             </div>
           </Reveal>
 
-          {/* Campaign progress */}
           <Reveal delay={120}>
-            <div className="rounded-3xl border border-line bg-white p-7 sm:p-8">
-              <Eyebrow>Live Campaign</Eyebrow>
-              <h3 className="mt-4 text-2xl font-bold text-navy text-balance">
-                Hope Fund 2026: Care for 10,000 warriors
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Help us close the gap on this year&apos;s national care fund —
-                covering testing, medication, blood and crisis support nationwide.
-              </p>
-
-              <div className="mt-6">
-                <div className="flex items-end justify-between">
-                  <span className="font-heading text-3xl font-extrabold text-primary">
-                    {naira(RAISED)}
-                  </span>
-                  <span className="text-sm text-muted">
-                    raised of {naira(GOAL)}
-                  </span>
-                </div>
-                <div className="mt-3 h-4 w-full overflow-hidden rounded-full bg-grey">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-primary to-primary-dark"
-                    style={{ width: `${percent}%` }}
-                  />
-                </div>
-                <div className="mt-2 flex justify-between text-xs font-semibold text-muted">
-                  <span>{percent}% funded</span>
-                  <span>{naira(GOAL - RAISED)} to go</span>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-2xl bg-grey/60 p-4">
-                  <p className="font-heading text-xl font-extrabold text-navy">6,200</p>
-                  <p className="text-xs text-muted">Donors</p>
-                </div>
-                <div className="rounded-2xl bg-grey/60 p-4">
-                  <p className="font-heading text-xl font-extrabold text-navy">36</p>
-                  <p className="text-xs text-muted">States</p>
-                </div>
-                <div className="rounded-2xl bg-grey/60 p-4">
-                  <p className="font-heading text-xl font-extrabold text-navy">42</p>
-                  <p className="text-xs text-muted">Days left</p>
-                </div>
-              </div>
+            <Eyebrow>Your Impact</Eyebrow>
+            <h3 className="mt-4 text-2xl font-bold text-navy sm:text-3xl text-balance">
+              Whatever you give, it goes straight to work
+            </h3>
+            <p className="mt-3 leading-relaxed text-muted">
+              We believe in radical clarity. Every gift — of any size — funds real
+              care for warriors and families across all 36 states and the FCT:
+            </p>
+            <div className="mt-6">
+              <CheckList items={giftImpacts} />
             </div>
           </Reveal>
-        </div>
-      </Section>
-
-      {/* Your impact (donationTiers) */}
-      <Section tone="white">
-        <SectionHeading
-          eyebrow="Your Impact"
-          title="See exactly what your gift does"
-          intro="We believe in radical clarity. Here is the real-world difference your donation makes the moment it lands."
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {donationTiers.map((tier, i) => (
-            <Reveal key={tier.amount} delay={(i % 4) * 80}>
-              <div className="group flex h-full flex-col rounded-3xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-navy/5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-soft text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <Icon.droplet className="h-6 w-6" />
-                </span>
-                <p className="mt-5 font-heading text-2xl font-extrabold text-primary">
-                  {tier.amount}
-                </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-                  {tier.impact}
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-navy hover:text-primary"
-                >
-                  Give this <Icon.arrow className="h-4 w-4" />
-                </Link>
-              </div>
-            </Reveal>
-          ))}
         </div>
       </Section>
 
@@ -291,42 +204,6 @@ export default function DonatePage() {
             </div>
           </div>
         </div>
-      </Section>
-
-      {/* Impact calculator (static) */}
-      <Section tone="grey">
-        <SectionHeading
-          eyebrow="Impact Calculator"
-          title="Picture your generosity at work"
-          intro="A few examples of how different gift sizes translate into real care for warriors and families."
-        />
-        <Reveal>
-          <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-3xl border border-line bg-white">
-            <div className="grid grid-cols-3 gap-4 bg-navy px-6 py-4 text-xs font-bold uppercase tracking-wide text-white/70">
-              <span>You give</span>
-              <span className="col-span-2">Your impact</span>
-            </div>
-            {calculatorRows.map((row, i) => (
-              <div
-                key={row.amount}
-                className={`grid grid-cols-3 items-center gap-4 px-6 py-5 ${
-                  i % 2 === 1 ? "bg-grey/40" : "bg-white"
-                }`}
-              >
-                <span className="font-heading text-lg font-extrabold text-primary">
-                  {row.amount}
-                </span>
-                <span className="col-span-2 text-sm leading-relaxed text-ink">
-                  {row.impact}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-        <p className="mt-5 text-center text-xs text-muted">
-          Illustrative figures based on average program costs. Actual allocation
-          is directed where the need is greatest.
-        </p>
       </Section>
 
       {/* Financial transparency */}
@@ -421,8 +298,8 @@ export default function DonatePage() {
                 cell community.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button href="/contact" size="lg" variant="white" icon>
-                  Donate now
+                <Button href={site.donateUrl} external size="lg" variant="white" icon>
+                  Donate with Paystack
                 </Button>
                 <Button
                   href="/volunteer"

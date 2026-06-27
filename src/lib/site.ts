@@ -12,6 +12,8 @@ export const site = {
   emergency: "+234 806 287 3981",
   whatsapp: "+234 806 287 3981",
   address: "Plot 12, Health Way, Central Business District, Abuja, Nigeria",
+  // Replace with SSCN's live Paystack payment-page link (or Flutterwave/Stripe).
+  donateUrl: "https://paystack.com/pay/supportsicklecellnigeria",
   socials: {
     facebook: "https://facebook.com",
     instagram: "https://instagram.com",
@@ -47,6 +49,7 @@ export const navLinks: NavLink[] = [
   { label: "Events", href: "/events" },
   { label: "Blood Donation", href: "/blood-donation" },
   { label: "Volunteer", href: "/volunteer" },
+  { label: "Donate", href: "/donate" },
   { label: "Resources", href: "/resources" },
   { label: "Stories of Hope", href: "/stories" },
   { label: "Shop", href: "/shop" },
@@ -66,6 +69,7 @@ export const primaryNav: NavLink[] = [
   { label: "Get Support", href: "/get-support" },
   { label: "Events", href: "/events" },
   { label: "Volunteer", href: "/volunteer" },
+  { label: "Donate", href: "/donate" },
 ];
 
 export const moreNav: NavLink[] = [

@@ -24,6 +24,7 @@ export function Button({
   size = "md",
   className = "",
   icon,
+  external = false,
 }: {
   href: string;
   children: ReactNode;
@@ -31,21 +32,38 @@ export function Button({
   size?: "sm" | "md" | "lg";
   className?: string;
   icon?: boolean;
+  external?: boolean;
 }) {
   const sizes = {
     sm: "px-4 py-2 text-sm",
     md: "px-5 py-2.5 text-sm",
     lg: "px-7 py-3.5 text-base",
   };
-  return (
-    <Link
-      href={href}
-      className={`group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 active:scale-[0.98] ${variants[variant]} ${sizes[size]} ${className}`}
-    >
+  const classes = `group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 active:scale-[0.98] ${variants[variant]} ${sizes[size]} ${className}`;
+  const inner = (
+    <>
       {children}
       {icon && (
         <Icon.arrow className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
       )}
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={classes}>
+      {inner}
     </Link>
   );
 }

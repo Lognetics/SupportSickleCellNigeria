@@ -10,7 +10,7 @@ import { Badge, SectionHeading, Section, PageHero } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Contact Us | Support Sickle Cell Nigeria (SSCN)",
   description:
-    "Reach Support Sickle Cell Nigeria — call, email, WhatsApp or visit our offices in Abuja, Lagos and across the country. Get support, volunteer, partner or send us a message.",
+    "Reach Support Sickle Cell Nigeria — call, email, WhatsApp or visit our national head office in Abuja. Get support, volunteer, partner or send us a message.",
 };
 
 const contactDetails: { icon: IconName; label: string; value: string; href?: string }[] = [
@@ -79,24 +79,6 @@ const offices = [
     address: "Plot 12, Health Way, Central Business District, Abuja, FCT",
     detail: "Mon–Fri · 9:00am – 5:00pm",
     tag: "Headquarters",
-  },
-  {
-    city: "Lagos Regional Office",
-    address: "24 Adeola Odeku Street, Victoria Island, Lagos State",
-    detail: "Mon–Fri · 9:00am – 5:00pm",
-    tag: "South-West",
-  },
-  {
-    city: "Kano Liaison Office",
-    address: "15 Murtala Mohammed Way, Fagge, Kano State",
-    detail: "Mon–Fri · 9:00am – 4:00pm",
-    tag: "North-West",
-  },
-  {
-    city: "Enugu Liaison Office",
-    address: "8 Okpara Avenue, Enugu, Enugu State",
-    detail: "Mon–Fri · 9:00am – 4:00pm",
-    tag: "South-East",
   },
 ];
 
@@ -187,14 +169,14 @@ export default function ContactPage() {
         </div>
       </Section>
 
-      {/* Office locations */}
+      {/* Office location */}
       <Section tone="grey">
         <SectionHeading
-          eyebrow="Our Offices"
-          title="Find us across Nigeria"
-          intro="From our Abuja headquarters to regional liaison offices, we're closer than you think."
+          eyebrow="Our Office"
+          title="Visit our headquarters"
+          intro="Our national head office in Abuja is the home of the SSCN movement. Come say hello."
         />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-12 grid max-w-md gap-6">
           {offices.map((o, i) => (
             <Reveal key={o.city} delay={(i % 4) * 80}>
               <div className="group flex h-full flex-col rounded-3xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
