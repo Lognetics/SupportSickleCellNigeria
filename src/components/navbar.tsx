@@ -26,11 +26,16 @@ export function Navbar() {
     setMoreOpen(false);
   }, [pathname]);
 
-  // Lock scroll when mobile drawer open
+  // Lock scroll + close on Escape when the mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    if (mobileOpen) window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
   }, [mobileOpen]);
 
@@ -38,13 +43,14 @@ export function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 shadow-sm shadow-navy/5 backdrop-blur"
-          : "bg-white"
-      }`}
-    >
+    <>
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 shadow-sm shadow-navy/5 backdrop-blur"
+            : "bg-white"
+        }`}
+      >
       {/* Top utility bar */}
       <div className="hidden bg-navy text-white lg:block">
         <div className="container-x flex h-9 items-center justify-between text-xs">
@@ -158,60 +164,80 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+      </header>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 xl:hidden">
-          <div
-            className="absolute inset-0 bg-navy/50 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div className="absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-line px-5 py-4">
-              <span className="flex items-center gap-2">
-                <Logo className="h-8 w-8" />
-                <span className="font-heading font-extrabold text-navy">SSCN</span>
-              </span>
-              <button
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-navy hover:bg-grey"
+      {/* Mobile drawer — rendered OUTSIDE the header so the sticky /
+          backdrop-blur header never becomes its containing block (which
+          previously trapped this fixed overlay once the page was scrolled). */}
+      <div
+        className={`fixed inset-0 z-[60] xl:hidden ${
+          mobileOpen ? "" : "pointer-events-none"
+        }`}
+        aria-hidden={!mobileOpen}
+      >
+        {/* Overlay */}
+        <div
+          className={`absolute inset-0 bg-navy/50 backdrop-blur-sm transition-opacity duration-300 ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setMobileOpen(false)}
+        />
+        {/* Panel */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+          className={`absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
+            mobileOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b border-line px-5 py-4">
+            <span className="flex items-center gap-2">
+              <Logo className="h-8 w-8" />
+              <span className="font-heading font-extrabold text-navy">SSCN</span>
+            </span>
+            <button
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-navy hover:bg-grey"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+            >
+              <Icon.close className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto overscroll-contain px-3 py-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
                 onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
+                className={`block rounded-xl px-4 py-3 text-base font-semibold transition-colors ${
+                  isActive(link.href)
+                    ? "bg-primary-soft text-primary"
+                    : "text-navy hover:bg-grey"
+                }`}
               >
-                <Icon.close className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto px-3 py-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block rounded-xl px-4 py-3 text-base font-semibold transition-colors ${
-                    isActive(link.href)
-                      ? "bg-primary-soft text-primary"
-                      : "text-navy hover:bg-grey"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-2 border-t border-line p-4">
-              <Link
-                href="/volunteer"
-                className="rounded-full border border-primary/30 px-4 py-3 text-center text-sm font-bold text-primary"
-              >
-                Volunteer
+                {link.label}
               </Link>
-              <Link
-                href="/donate"
-                className="rounded-full bg-primary px-4 py-3 text-center text-sm font-bold text-white"
-              >
-                Donate Now
-              </Link>
-            </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-2 border-t border-line p-4">
+            <Link
+              href="/volunteer"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-full border border-primary/30 px-4 py-3 text-center text-sm font-bold text-primary"
+            >
+              Volunteer
+            </Link>
+            <Link
+              href="/donate"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-full bg-primary px-4 py-3 text-center text-sm font-bold text-white"
+            >
+              Donate Now
+            </Link>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   );
 }
