@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { stats, founder } from "@/lib/site";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
-import { Photo } from "@/components/photo";
-import { img } from "@/lib/images";
 import { Icon, type IconName } from "@/components/icons";
 import {
   Button,
@@ -100,34 +98,6 @@ const timeline = [
   },
 ];
 
-const leadership = [
-  { name: "Barr. Eyo Ugo", role: "Founder & President" },
-  { name: "Ibrahim Sani", role: "Director of Programmes" },
-  { name: "Funmilayo Adeyemi", role: "Director of Operations" },
-  { name: "Emeka Nwosu", role: "Director of Partnerships" },
-];
-
-const board = [
-  { name: "Dr. Olusegun Bello", role: "Board Chair" },
-  { name: "Hauwa Mohammed", role: "Vice Chair" },
-  { name: "Chidi Okafor", role: "Treasurer" },
-  { name: "Ngozi Eze", role: "Board Secretary" },
-];
-
-const medical = [
-  { name: "Dr. Chidinma Eze", role: "Lead Haematologist" },
-  { name: "Dr. Yusuf Abubakar", role: "Paediatric Specialist" },
-  { name: "Dr. Bisi Ogundipe", role: "Genetic Counsellor" },
-  { name: "Dr. Tanko Aliyu", role: "Public Health Advisor" },
-];
-
-const coordinators = [
-  { name: "Grace Udo", role: "South-South Coordinator" },
-  { name: "Musa Garba", role: "North-West Coordinator" },
-  { name: "Tunde Akinyemi", role: "South-West Coordinator" },
-  { name: "Blessing Achi", role: "South-East Coordinator" },
-];
-
 const achievements = [
   "Over 20,000 warriors and families directly supported nationwide.",
   "More than 500 voluntary blood donors mobilised through our drives.",
@@ -166,21 +136,6 @@ const reports: { icon: IconName; title: string; text: string; tag: string }[] = 
     tag: "PDF · 3.1MB",
   },
 ];
-
-const groups = [
-  { title: "Leadership Team", people: leadership, tone: "primary" },
-  { title: "Board Members", people: board, tone: "navy" },
-  { title: "Medical Advisory Team", people: medical, tone: "primary" },
-  { title: "National Coordinators", people: coordinators, tone: "navy" },
-] as const;
-
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("");
-}
 
 /* ---------------- page ---------------- */
 
@@ -268,46 +223,30 @@ export default function AboutPage() {
 
       {/* Founder */}
       <Section tone="navy">
-        <div className="grid items-center gap-12 lg:grid-cols-5">
-          <Reveal className="lg:col-span-2">
-            <div className="relative">
-              <Photo
-                src={img.founder.src}
-                alt={img.founder.alt}
-                className="aspect-[4/5] w-full shadow-2xl ring-1 ring-white/10"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-              <div className="absolute -bottom-5 -right-4 rounded-2xl bg-primary px-5 py-4 shadow-xl">
-                <p className="font-heading text-lg font-extrabold text-white">
-                  {founder.name}
-                </p>
-                <p className="text-sm text-white/85">{founder.role}</p>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={120} className="lg:col-span-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary-light" />
-              Meet Our Founder
-            </span>
-            <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl text-balance">
-              {founder.title}
-            </h2>
-            <Icon.quote className="mt-5 h-9 w-9 text-primary-light/60" />
-            <blockquote className="mt-2 text-lg leading-relaxed text-white/85">
-              &ldquo;{founder.message}&rdquo;
-            </blockquote>
-            <div className="mt-5 space-y-3 text-sm leading-relaxed text-white/70">
-              {founder.bio.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
-            <p className="mt-6 font-heading text-xl font-bold italic text-primary-light">
-              {founder.signature}
-            </p>
-          </Reveal>
-        </div>
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary-light" />
+            Meet Our Founder
+          </span>
+          <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl text-balance">
+            {founder.title}
+          </h2>
+          <Icon.quote className="mx-auto mt-5 h-9 w-9 text-primary-light/60" />
+          <blockquote className="mt-2 text-lg leading-relaxed text-white/85">
+            &ldquo;{founder.message}&rdquo;
+          </blockquote>
+          <div className="mt-6 space-y-3 text-sm leading-relaxed text-white/70">
+            {founder.bio.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <p className="mt-8 font-heading text-2xl font-bold italic text-primary-light">
+            {founder.signature}
+          </p>
+          <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-white/70">
+            {founder.role}
+          </p>
+        </Reveal>
       </Section>
 
       {/* Mission / Vision / Values */}
@@ -394,42 +333,6 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </Section>
-
-      {/* People */}
-      <Section tone="grey">
-        <SectionHeading
-          eyebrow="Our People"
-          title="The hands and hearts behind SSCN"
-          intro="A team of warriors, clinicians, advocates and volunteers leading the movement across Nigeria."
-        />
-
-        <div className="mt-12 space-y-12">
-          {groups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-xl font-bold text-navy">{group.title}</h3>
-              <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {group.people.map((p, i) => (
-                  <Reveal key={p.name} delay={(i % 4) * 70}>
-                    <div className="group flex h-full flex-col items-center rounded-3xl border border-line bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/5">
-                      <span
-                        className={`flex h-20 w-20 items-center justify-center rounded-full text-xl font-extrabold text-white ${
-                          group.tone === "primary"
-                            ? "bg-gradient-to-br from-primary to-primary-dark"
-                            : "bg-gradient-to-br from-navy to-navy-light"
-                        }`}
-                      >
-                        {initials(p.name)}
-                      </span>
-                      <h4 className="mt-4 font-bold text-navy">{p.name}</h4>
-                      <p className="mt-1 text-sm text-muted">{p.role}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </Section>
 
